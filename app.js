@@ -21,6 +21,34 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.get('/hello',function(req,res) {
+
+  res.send('This is testing hello world');
+
+});
+app.get('/login',function(req,res){
+  
+  res.send('This is login page');
+  console.log('login');
+  
+});
+app.get('/create',function(req,res){
+  res.send('This is create page');
+  console.log('create');
+  
+});
+app.get('/update',function(req,res){
+  res.send('this is update page');
+  console.log('update');
+  
+});
+app.get('/delete',function(req,res){
+  res.send('this is delete page');
+  console.log('delete');
+  
+});
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
