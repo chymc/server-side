@@ -1,5 +1,6 @@
-const express = require('express');
+var express = require('express');
 var router = express.Router();
+var bodyParser = require('body-parser');
 
 // support parsing of application/json type post data
 router.use(bodyParser.json());
@@ -15,13 +16,14 @@ const dbName = '';
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    res.send('create restaurant');
+    res.status(200).render(path.join(__dirname, '/views/create.ejs'));  
 });
 
 router.post('/', function (req, res, next) {
-    if (req.query.name.length == 0) {
+    if (req.body.name.length == 0) {
         res.redirect('/');
     }
+
 
     let newRest = {
         "name": "",
@@ -76,7 +78,8 @@ const insertDoc = (res, doc) => {
                 assert.equal(err, null);
 
                 //after success
-
+                var newID = result.insertedId;
+                res.send({ status: 'OK', _id: newID });
             });
         });
     } else {
