@@ -11,8 +11,8 @@ router.use(bodyParser.urlencoded({ extended: true }));
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 const ObjectId = require('mongodb').ObjectID;
-const mongoDBurl = '';
-const dbName = '';
+const mongoDBurl = 'mongodb+srv://NIck:Nick24182215@cluster0-9fcrc.azure.mongodb.net/test?retryWrites=true&w=majority';
+const dbName = 'test';
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
