@@ -80,6 +80,7 @@ const insertDoc = (res, doc) => {
                 //after success
                 var newID = result.insertedId;
                 res.send({ status: 'OK', _id: newID });
+                client.close();
             });
         });
     } else {
