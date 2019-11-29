@@ -84,6 +84,7 @@ const insertDoc = (res, doc) => {
         });
     } else {
         //after failed
+        res.send({ status: 'failed' });
     }
 }
 
