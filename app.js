@@ -6,7 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+var loginRouter = require('./routes/login');
 var app = express();
 
 // view engine setup
@@ -21,17 +21,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/login',loginRouter);
+
 app.get('/hello',function(req,res) {
 
   res.send('This is testing hello world');
 
 });
-app.get('/login',function(req,res){
-  
-  res.send('This is login page');
-  console.log('login');
-  
-});
+app.get('/',function(req,res){
+
+  res.redirect('login');
+
+})
 app.get('/create',function(req,res){
   res.send('This is create page');
   console.log('create');
