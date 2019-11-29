@@ -23,20 +23,35 @@ router.post('/', function (req, res, next) {
         res.redirect('/');
     }
 
-    let newRest = {};
+    let newRest = {
+        "name": "",
+        "owner": "",
+        "borough": "",
+        "cuisine": "",
+        "address": {
+            "street": "",
+            "building": "",
+            "zipcode": "",
+            "coord": {
+                "x": null,
+                "y": null
+            }
+        },
+        "grades": [{}]
+    };
     //Mandatory attributes
-    newRest.name = req.query.name;
+    newRest.name = req.body.name;
     newRest.owner = req.session.email;
 
     //Optional attributes
-    newRest.borough = req.query.borough;
-    newRest.cuisine = req.query.cuisine;
+    newRest.borough = req.body.borough;
+    newRest.cuisine = req.body.cuisine;
 
-    newRest.address.street = req.query.street;
-    newRest.address.building = req.query.building;
-    newRest.address.zipcode = req.query.zipcode;
-    newRest.address.coord.x = req.query.coordx;
-    newRest.address.coord.y = req.query.coordy;
+    newRest.address.street = req.body.street;
+    newRest.address.building = req.body.building;
+    newRest.address.zipcode = req.body.zipcode;
+    newRest.address.coord.x = req.body.coordx;
+    newRest.address.coord.y = req.body.coordy;
 
     newRest.grades = [{}];
 
@@ -44,20 +59,20 @@ router.post('/', function (req, res, next) {
 })
 
 const insertDoc = (res, doc) => {
-    let docObj = {};
+    /*let docObj = {};
     try {
         docObj = JSON.parse(doc);
         //console.log(Object.keys(docObj).length);
     } catch (err) {
         console.log(`${doc} : Invalid document!`);
-    }
-    if (Object.keys(docObj).length > 0) {  // document has at least 1 name/value pair
+    }*/
+    if (Object.keys(doc).length > 0) {  // document has at least 1 name/value pair
         const client = new MongoClient(mongoDBurl);
         client.connect((err) => {
             assert.equal(null, err);
             console.log("Connected successfully to server");
             const db = client.db(dbName);
-            db.collection('restaurant').insertOne(docObj, (err, result) => {
+            db.collection('restaurant').insertOne(doc, (err, result) => {
                 assert.equal(err, null);
 
                 //after success
