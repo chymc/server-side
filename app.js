@@ -23,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/',loginRouter);
+app.use('/login',loginRouter);
 app.use('/create',createRouter);
 app.get('/hello',function(req,res) {
 
