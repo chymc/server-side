@@ -50,14 +50,14 @@ router.get('/_id/:_id', (req, res) => {
                     res.write('</p><br />');
                 }
                 if (req.session.name == aRest.owner) {
-                    res.write('<a href="../update">Update Info.</a><br />');
+                    res.write('<a href="/update?_id=' + aRest._id + '">Update Info.</a><br />');
                     res.write('<form action="/delete" method="post">');
                     res.write('<input type="hidden" name="_id" value="' + aRest._id + '"/>');
                     res.write('<input type="submit" value="Delete" />');
                     res.write('</form><br />');
                 }
                 
-                res.write('<a href="../rate">Rate this restaurant</a><br />');
+                res.write('<a href="/rate">Rate this restaurant</a><br />');
 
                 res.write('<form action="/map" method="post">');
                 res.write('<input type="hidden" name="x" value="' + aRest.address.coord.x + '"/>');
