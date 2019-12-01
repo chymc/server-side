@@ -7,15 +7,17 @@ const ObjectId = require('mongodb').ObjectID;
 const mongoDBurl = 'mongodb+srv://NIck:Nick24182215@cluster0-9fcrc.azure.mongodb.net/test?retryWrites=true&w=majority';
 const dbName = 'miniproject';
 router.get('/',(req,res,next)=>{
-
-    res.render('login',{title:title});
+    if (!req.session.name)
+        res.render('login',{title:title});
+    else 
+        res.redirect('/main');
 
 });
 router.post('/',(req,res,next)=> {
     var q = {'userid':req.body.user, 'password':req.body.pass};
     console.log("user name"+req.body.user);
     console.log("user password"+req.body.pass);
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    // res.writeHead(200, { 'Content-Type': 'text/plain' });
     const client = new MongoClient(mongoDBurl);
     client.connect((err)=>{
         assert.equal(null,err);
@@ -29,12 +31,13 @@ router.post('/',(req,res,next)=> {
                 {
                     let username = req.body.user;
                     req.session.name = username;
-                    res.write(`Welcome ${req.session.name}`);
+                    console.log(`This is session cookies ${req.session.name}`);
+                    res.redirect('/main');
                 }
-                else
-                res.write('no account');
-            res.end('okay');
-
+            else
+                console.log('no account');
+            // res.end();
+    
         });
 
 

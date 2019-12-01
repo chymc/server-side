@@ -8,6 +8,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var createRouter = require('./routes/create');
+var mainRouter = require('./routes/main');
+var logoutRouter = require('./routes/logout');
 var registerRouter = require('./routes/register');
 var app = express();
 
@@ -30,6 +32,8 @@ app.use('/',loginRouter);
 app.use('/login',loginRouter);
 app.use('/create',createRouter);
 app.use('/register',registerRouter);
+app.use('/main',mainRouter);
+app.use('/logout',logoutRouter);
 app.get('/hello',function(req,res) {
 
   res.send('This is testing hello world');
