@@ -26,8 +26,12 @@ router.post('/',(req,res,next)=> {
             console.log('disconnected');
             console.log(`This is result ${results}`);
             if (results>0)
-                res.write('account existed');
-            else
+                {
+                    let username = req.body.user;
+                    req.session.name = username;
+                    res.write(`Welcome ${req.session.name}`);
+                }
+                else
                 res.write('no account');
             res.end('okay');
 
