@@ -8,14 +8,17 @@ const mongoDBurl = 'mongodb+srv://NIck:Nick24182215@cluster0-9fcrc.azure.mongodb
 const dbName = 'miniproject';
 router.get('/',(req,res,next)=>{
 
-    res.render('register',{title:title});
+    if (!req.session.name)
+        res.render('register',{title:title});
+    else 
+        res.redirect('/main');
 
 });
 router.post('/',(req,res,next)=> {
     var q = {'userid':req.body.userid, 'password':req.body.password};
     console.log("user name"+req.body.user);
     console.log("user password"+req.body.pass);
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    // res.sendStatus(200);
     const client = new MongoClient(mongoDBurl);
     client.connect((err)=>{
         assert.equal(null,err);
@@ -29,7 +32,7 @@ router.post('/',(req,res,next)=> {
             {
                console.log('account existed');
                 client.close();
-                res.end('account existed');
+                res.redirect('/register');
             }
             else
                 {
@@ -37,8 +40,8 @@ router.post('/',(req,res,next)=> {
                     createAccount(q,db,()=>{
                         client.close();
                         console.log('account created successfully');
-                        res.end('account created successfully');
-
+                        res.redirect('/');
+                        
                     });
                
                 }
