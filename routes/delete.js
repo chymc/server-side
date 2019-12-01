@@ -12,7 +12,7 @@ const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 const ObjectId = require('mongodb').ObjectID;
 const mongoDBurl = 'mongodb+srv://NIck:Nick24182215@cluster0-9fcrc.azure.mongodb.net/test?retryWrites=true&w=majority';
-const dbName = 'test';
+const dbName = 'miniproject';
 
 
 router.post('/', function (req, res, next) {
@@ -35,63 +35,6 @@ router.post('/', function (req, res, next) {
         client.close();
     });
 })
-
-/*
-//To check the document is owned by the logged in user or not
-const canDelete = (res, doc) => {
-    if (Object.keys(doc).length > 0) {  // document has at least 1 name/value pair
-        const client = new MongoClient(mongoDBurl);
-        client.connect((err) => {
-            assert.equal(null, err);
-            console.log("Connected successfully to server");
-            const db = client.db(dbName);
-            var cursor = db.collection('restaurant').find(doc);
-            var checkResult = false;
-
-            cursor.toArray((err, docs) => {
-                assert.equal(err, null);
-                client.close();
-                console.log('Disconnected MongoDB');
-                
-                if (docs[0].owner.equal(req.session.email)) {
-                    checkResult = true;
-                }
-            });
-
-            db.close;
-            return checkResult;
-        });
-    } else {
-        //after failed
-        res.send({ status: 'failed' });
-        return false;
-    }
-}
-*/
-
-/*
-const deleteDoc = (res, doc) => {
-    if (Object.keys(doc).length > 0) {  // document has at least 1 name/value pair
-        const client = new MongoClient(mongoDBurl);
-        client.connect((err) => {
-            assert.equal(null, err);
-            console.log("Connected successfully to server");
-            const db = client.db(dbName);
-            db.collection('restaurant').deleteOne(doc, (err, result) => {
-                assert.equal(err, null);
-
-                //after success
-                var deleteCount = result.deletedCount;
-                res.send({ status: 'OK', count: deleteCount });
-                client.close();
-            });
-        });
-    } else {
-        //after failed
-        res.send({ status: 'failed' });
-    }
-}
-*/
 
 const deleteDoc = (db, criteria, callback) => {
     db.collection('restaurants').deleteOne(criteria, (err, result) => {

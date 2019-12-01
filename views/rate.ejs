@@ -1,0 +1,11 @@
+<html>
+	<body>
+        <form action="/rate" method="post">
+            <input type="hidden" name="_id" value="<%= restID %>" />
+            Name: <input type="text" name="name" value="<%= restName %>" readonly /><br />
+            Grade: <input type="text" name="grade" value="" pattern="[A-Z]{1}"/><br />
+			Score: <input type="number" name="score" value="" min="1" max="10"/><br />
+			<input type="submit" value="Submit" />
+		</form>
+	</body>
+</html>

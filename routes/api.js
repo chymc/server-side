@@ -1,100 +1,25 @@
-var createError = require('http-errors');
 var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-const session = require('express-session');
+var router = express.Router();
+var bodyParser = require('body-parser');
 const multer = require('multer');
 const upload = multer({});
 
-var apiRouter = require('./routes/api');
-var searchRouter = require('./routes/search');
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var loginRouter = require('./routes/login');
-var createRouter = require('./routes/create');
-var mainRouter = require('./routes/main');
-var logoutRouter = require('./routes/logout');
-var registerRouter = require('./routes/register');
-var restaurantRouter = require('./routes/restaurant');
-var rateRouter = require('./routes/rate');
-var updateRouter = require('./routes/update');
-var mapRouter = require('./routes/map');
-var app = express();
+const ObjectID = require('mongodb').ObjectID;
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-app.use(session({
-  secret: 'DONT TELL ANYONE',
-  cookie: { maxAge: 60 * 1000 }
-}));
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// router.set('view engine', 'ejs');
 
-// app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/',loginRouter);
-app.use('/login',loginRouter);
-app.use('/create',createRouter);
-app.use('/register',registerRouter);
-app.use('/main',mainRouter);
-app.use('/logout',logoutRouter);
-app.use('/search', searchRouter);
-app.use('/api', apiRouter);
-app.use('/restaurant', restaurantRouter);
-app.use('/rate', rateRouter);
-app.use('/update', updateRouter);
-app.use('/map', mapRouter);
-app.get('/hello',function(req,res) {
+// support parsing of application/json type post data
+router.use(bodyParser.json());
 
-  res.send('This is testing hello world');
+//support parsing of application/x-www-form-urlencoded post data
+router.use(bodyParser.urlencoded({ extended: true }));
 
-});
-// app.get('/',function(req,res){
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
+const mongoDBurl = 'mongodb+srv://NIck:Nick24182215@cluster0-9fcrc.azure.mongodb.net/test?retryWrites=true&w=majority';
+const dbName = 'miniproject';
 
-//   res.redirect('login');
-
-// })
-// app.get('/create',function(req,res){
-//   res.send('This is create page');
-//   console.log('create');
-  
-// });
-// app.get('/update',function(req,res){
-//   res.send('this is update page');
-//   console.log('update');
-  
-// });
-// app.get('/delete',function(req,res){
-//   res.send('this is delete page');
-//   console.log('delete');
-  
-// });
-
-
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
-
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-/*
-app.post('/api/restaurant', upload.single('filetoupload'), function (req, res, next) {
+router.post('/restaurant', upload.single('filetoupload'), function (req, res, next) {
     if (req.body.name.length == 0) {
         res.redirect('/');
     }
@@ -120,7 +45,7 @@ app.post('/api/restaurant', upload.single('filetoupload'), function (req, res, n
     };
     //Mandatory attributes
     newRest.name = req.body.name;
-    newRest.owner = req.session.email;
+    newRest.owner = req.session.name;
 
     //Optional attributes
     newRest.borough = req.body.borough;
@@ -169,7 +94,7 @@ const insertDoc = (res, doc) => {
     }
 };
 
-app.get('/api/restaurant/name/:name', (req, res) => {
+router.get('/restaurant/name/:name', (req, res) => {
     const client = new MongoClient(mongoDBurl);
     client.connect((err) => {
         assert.equal(null, err);
@@ -189,7 +114,7 @@ app.get('/api/restaurant/name/:name', (req, res) => {
     });
 });
 
-app.get('/api/restaurant/borough/:borough', function (req, res, next) {
+router.get('/restaurant/borough/:borough', function (req, res, next) {
     const client = new MongoClient(mongoDBurl);
     client.connect((err) => {
         assert.equal(null, err);
@@ -210,7 +135,7 @@ app.get('/api/restaurant/borough/:borough', function (req, res, next) {
     });
 });
 
-app.get('/api/restaurant/cuisine/:cuisine', function (req, res, next) {
+router.get('/restaurant/cuisine/:cuisine', function (req, res, next) {
     const client = new MongoClient(mongoDBurl);
     client.connect((err) => {
         assert.equal(null, err);
@@ -241,5 +166,4 @@ const searchRestaurant = (db, criteria, callback) => {
     });
 }
 
-*/
-module.exports = app;
+module.exports = router;

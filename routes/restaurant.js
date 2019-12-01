@@ -14,7 +14,7 @@ const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 const ObjectId = require('mongodb').ObjectID;
 const mongoDBurl = 'mongodb+srv://NIck:Nick24182215@cluster0-9fcrc.azure.mongodb.net/test?retryWrites=true&w=majority';
-const dbName = 'test';
+const dbName = 'miniproject';
 
 router.get('/', function (req, res, next) {
     res.redirect('../search');
@@ -42,11 +42,11 @@ router.get('/_id/:_id', (req, res) => {
                 res.write('Zipcode: ' + aRest.address.zipcode + '<br />');
                 res.write('GPS Coordinate (lon.): ' + aRest.address.coord.x + '<br />');
                 res.write('GPS Coordinate (lat.): ' + aRest.address.coord.y + '<br />');
-                for (i = 0; i < aRest.grades.length; i++) {
+                for (i = 1; i < aRest.grades.length; i++) {
                     res.write('<p>');
                     res.write('Date: ' + aRest.grades[i].date + '<br />');
                     res.write('Grade: ' + aRest.grades[i].grade + '<br />');
-                    res.write('Score' + aRest.grades[i].score + '<br />');
+                    res.write('Score: ' + aRest.grades[i].score + '<br />');
                     res.write('</p><br />');
                 }
                 if (req.session.name == aRest.owner) {
@@ -57,7 +57,7 @@ router.get('/_id/:_id', (req, res) => {
                     res.write('</form><br />');
                 }
                 
-                res.write('<a href="/rate">Rate this restaurant</a><br />');
+                res.write('<a href="/rate?restID=' + aRest._id + '&restName=' + aRest.name + '">Rate this restaurant</a><br />');
 
                 res.write('<form action="/map" method="post">');
                 res.write('<input type="hidden" name="x" value="' + aRest.address.coord.x + '"/>');

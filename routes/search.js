@@ -12,7 +12,7 @@ const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 const ObjectId = require('mongodb').ObjectID;
 const mongoDBurl = 'mongodb+srv://NIck:Nick24182215@cluster0-9fcrc.azure.mongodb.net/test?retryWrites=true&w=majority';
-const dbName = 'test';
+const dbName = 'miniproject';
 
 router.get('/', function (req, res, next) {
     res.render('search');
@@ -26,7 +26,7 @@ router.post('/name', function (req, res, next) {
         console.log("Connected successfully to server");
         let docObj = {}
         //console.log(req.params.name)
-        let condition = { name: "/" + req.body.name + "/" };
+        let condition = { name: req.body.name };
         console.log(condition);
         const db = client.db(dbName);
         searchRestaurant(db, condition, (restaurants) => {
@@ -54,7 +54,7 @@ router.post('/borough', function (req, res, next) {
         console.log("Connected successfully to server");
         let docObj = {}
         //console.log(req.params.name)
-        let condition = { borough: "/" + req.body.borough + "/" };
+        let condition = { borough: req.body.borough };
         console.log(condition);
         const db = client.db(dbName);
         searchRestaurant(db, condition, (restaurants) => {
@@ -82,7 +82,7 @@ router.post('/cuisine', function (req, res, next) {
         console.log("Connected successfully to server");
         let docObj = {}
         //console.log(req.params.name)
-        let condition = { cuisine: "/" + req.body.cuisine + "/" };
+        let condition = { cuisine: req.body.cuisine };
         console.log(condition);
         const db = client.db(dbName);
         searchRestaurant(db, condition, (restaurants) => {
