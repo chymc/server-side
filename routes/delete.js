@@ -26,7 +26,7 @@ router.post('/', function (req, res, next) {
         const db = client.db(dbName);
         deleteDoc(db, condition, (aResult) => {
             if (aResult != 0) {
-                res.status(200).end('Success!');
+                res.status(200).send('Success!<a href="/main">Back to main page</a>');
             }
             else {
                 res.status(200).end('Failed!');

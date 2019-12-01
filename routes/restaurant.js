@@ -31,6 +31,8 @@ router.get('/_id/:_id', (req, res) => {
         searchRestaurant(db, theCriteria, (restaurants) => {
             if (restaurants.length != 0) {
                 var aRest = restaurants[0];
+                global.canRate = true;
+                console.log(canRate);
                 res.writeHead(200, { "Content-Type": "text/html" });
                 res.write('<html><body>')
                 res.write('<img src="data:' + aRest.mimetype + ';base64, ' + aRest.image + '" /><br />');
@@ -43,6 +45,14 @@ router.get('/_id/:_id', (req, res) => {
                 res.write('GPS Coordinate (lon.): ' + aRest.address.coord.x + '<br />');
                 res.write('GPS Coordinate (lat.): ' + aRest.address.coord.y + '<br />');
                 for (i = 1; i < aRest.grades.length; i++) {
+                    console.log('session_name: ' + req.session.name);
+                    console.log('rater: ' + aRest.grades[i].rater);
+                    //console.log(aRest.grades.rater == req.session.name);
+                    //console.log(canRate);
+                    if (aRest.grades[i].rater == req.session.name){
+                        global.canRate = false;
+                        console.log(global.canRate);
+                    }
                     res.write('<p>');
                     res.write('Date: ' + aRest.grades[i].date + '<br />');
                     res.write('Grade: ' + aRest.grades[i].grade + '<br />');
@@ -57,7 +67,10 @@ router.get('/_id/:_id', (req, res) => {
                     res.write('</form><br />');
                 }
                 
-                res.write('<a href="/rate?restID=' + aRest._id + '&restName=' + aRest.name + '">Rate this restaurant</a><br />');
+                console.log('canRate Final: ' + global.canRate);
+                if (global.canRate == true){
+                    res.write('<a href="/rate?restID=' + aRest._id + '&restName=' + aRest.name + '">Rate this restaurant</a><br />');
+                }
 
                 res.write('<form action="/map" method="post">');
                 res.write('<input type="hidden" name="x" value="' + aRest.address.coord.x + '"/>');

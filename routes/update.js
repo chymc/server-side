@@ -68,10 +68,10 @@ router.post('/', function (req, res, next) {
         const db = client.db(dbName);
         updateRestaurant(db, myquery, newValues, (editCount) => {
             if (editCount != 0) {
-                res.status(200).end('Edit Success');
+                res.status(200).send('Edit Success. <a href="/main">Back to main page</a>');
             }
             else {
-                res.status(200).end('Failed!');
+                res.status(200).send('Failed! Make sure that you have at least edit one thing. <a href="/main">Back to main page</a>');
             }
         });
         client.close();
