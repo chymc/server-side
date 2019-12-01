@@ -42,7 +42,8 @@
       </div>
     </div>
     <div class="row">
-    <% for (r of restaurants) { %>
+    <% if ((restaurants!=="") || (restaurants!==null)){ 
+      for (r of restaurants) { %>
       <div id="title" class="card col-12 col-sm-6">
         <a href="#">
             <br/>
@@ -68,7 +69,9 @@
     </div>
       
       
-      <% } %>
+      <% }
+       } %>
+       
     </div>
   </div>
 </body>

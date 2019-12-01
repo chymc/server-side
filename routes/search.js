@@ -18,7 +18,7 @@ router.get('/', function (req, res, next) {
     if (!req.session.name)
         res.redirect('/login');
     else
-        res.render('search');
+        res.render('search',{username:req.session.name});
 });
 
 
@@ -35,15 +35,18 @@ router.post('/name', function (req, res, next) {
         searchRestaurant(db, condition, (restaurants) => {
             console.log(restaurants);
             if (restaurants.length != 0) {
-                res.writeHead(200, { "Content-Type": "text/html" });
+                /*res.writeHead(200, { "Content-Type": "text/html" });
                 res.write('<html><body>')
                 for (i = 0; i < restaurants.length; i++) {
                     res.write('<a href="/restaurant/_id/' + restaurants[i]._id + '">' + restaurants[i].name + '</a><br/>');
                 }
-                res.end('</body></html>');
+                res.end('</body></html>');*/
+                res.render('main',{username:req.session.name,"restaurants":restaurants});
+     
             }
             else {
-                res.status(200).end('{}');
+                res.render('main',{username:req.session.name,"restaurants":restaurants});
+     
             }
         });
         client.close();
@@ -63,15 +66,19 @@ router.post('/borough', function (req, res, next) {
         searchRestaurant(db, condition, (restaurants) => {
             console.log(restaurants);
             if (restaurants.length != 0) {
-                res.writeHead(200, { "Content-Type": "text/html" });
+               /* res.writeHead(200, { "Content-Type": "text/html" });
                 res.write('<html><body>')
                 for (i = 0; i < restaurants.length; i++) {
                     res.write('<a href="/restaurant/_id/' + restaurants[i]._id + '">' + restaurants[i].name + '</a><br/>');
                 }
-                res.end('</body></html>');
+                res.end('</body></html>');*/
+                res.render('main',{username:req.session.name,"restaurants":restaurants});
+     
             }
             else {
-                res.status(200).end('{}');
+                // res.status(200).end('{}');
+                res.render('main',{username:req.session.name,"restaurants":restaurants});
+     
             }
         });
         client.close();
@@ -91,15 +98,18 @@ router.post('/cuisine', function (req, res, next) {
         searchRestaurant(db, condition, (restaurants) => {
             console.log(restaurants);
             if (restaurants.length != 0) {
-                res.writeHead(200, { "Content-Type": "text/html" });
+               /* res.writeHead(200, { "Content-Type": "text/html" });
                 res.write('<html><body>')
                 for (i = 0; i < restaurants.length; i++) {
                     res.write('<a href="/restaurant/_id/' + restaurants[i]._id + '">' + restaurants[i].name + '</a><br/>');
                 }
-                res.end('</body></html>');
+                res.end('</body></html>');*/
+                res.render('main',{username:req.session.name,"restaurants":restaurants});
+     
             }
             else {
-                res.status(200).end('{}');
+                res.render('main',{username:req.session.name,"restaurants":restaurants});
+     
             }
         });
         client.close();
