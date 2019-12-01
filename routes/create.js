@@ -2,6 +2,12 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 
+const multer = require('multer');
+const upload = multer({})
+const ObjectID = require('mongodb').ObjectID;
+
+router.set('view engine', 'ejs');
+
 // support parsing of application/json type post data
 router.use(bodyParser.json());
 
@@ -23,6 +29,7 @@ router.get('/', function (req, res, next) {
 
 });
 
+/*
 router.post('/', function (req, res, next) {
     if (req.body.name.length == 0) {
         res.redirect('/');
@@ -65,20 +72,13 @@ router.post('/', function (req, res, next) {
 })
 
 const insertDoc = (res, doc) => {
-    /*let docObj = {};
-    try {
-        docObj = JSON.parse(doc);
-        //console.log(Object.keys(docObj).length);
-    } catch (err) {
-        console.log(`${doc} : Invalid document!`);
-    }*/
     if (Object.keys(doc).length > 0) {  // document has at least 1 name/value pair
         const client = new MongoClient(mongoDBurl);
         client.connect((err) => {
             assert.equal(null, err);
             console.log("Connected successfully to server");
             const db = client.db(dbName);
-            db.collection('restaurant').insertOne(doc, (err, result) => {
+            db.collection('restaurants').insertOne(doc, (err, result) => {
                 assert.equal(err, null);
 
                 //after success
@@ -92,6 +92,6 @@ const insertDoc = (res, doc) => {
         res.send({ status: 'failed' });
     }
 }
-
+*/
 
 module.exports = router;

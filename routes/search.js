@@ -15,48 +15,103 @@ const mongoDBurl = 'mongodb+srv://NIck:Nick24182215@cluster0-9fcrc.azure.mongodb
 const dbName = 'test';
 
 router.get('/', function (req, res, next) {
-    res.status(200).render(path.join(__dirname, '/views/search.ejs'));
-});
-
-router.get('/name/:name', function (req, res, next) {
-    let myQuery = { name: req.params.name };
-    searchRestaurant(res, myQuery);
-});
-
-router.get('/borough/:borough', function (req, res, next) {
-    let myQuery = { borough: req.params.borough };
-    searchRestaurant(res, myQuery);
-});
-
-router.get('/cuisine/:cuisine', function (req, res, next) {
-    let myQuery = { cuisine: req.params.cuisine };
-    searchRestaurant(res, myQuery);
+    res.render('search');
 });
 
 
-
-const searchRestaurant = (res, doc) => {
-        const client = new MongoClient(mongoDBurl);
-        client.connect((err) => {
-            assert.equal(null, err);
-            console.log("Connected successfully to server");
-            const db = client.db(dbName);
-            var cursor = db.collection('restaurant').find(doc);
-            var checkResult = false;
-
-            cursor.toArray((err, docs) => {
-                assert.equal(err, null);
-                client.close();
-                console.log('Disconnected MongoDB');
-
-                res.send(docs);
-
-            });
-
-            db.close;
-            return checkResult;
+router.post('/name', function (req, res, next) {
+    const client = new MongoClient(mongoDBurl);
+    client.connect((err) => {
+        assert.equal(null, err);
+        console.log("Connected successfully to server");
+        let docObj = {}
+        //console.log(req.params.name)
+        let condition = { name: "/" + req.body.name + "/" };
+        console.log(condition);
+        const db = client.db(dbName);
+        searchRestaurant(db, condition, (restaurants) => {
+            console.log(restaurants);
+            if (restaurants.length != 0) {
+                res.writeHead(200, { "Content-Type": "text/html" });
+                res.write('<html><body>')
+                for (i = 0; i < restaurants.length; i++) {
+                    res.write('<a href="/restaurant/_id/' + restaurants[i]._id + '">' + restaurants[i].name + '</a><br/>');
+                }
+                res.end('</body></html>');
+            }
+            else {
+                res.status(200).end('{}');
+            }
         });
+        client.close();
+    });
+});
+
+router.post('/borough', function (req, res, next) {
+    const client = new MongoClient(mongoDBurl);
+    client.connect((err) => {
+        assert.equal(null, err);
+        console.log("Connected successfully to server");
+        let docObj = {}
+        //console.log(req.params.name)
+        let condition = { borough: "/" + req.body.borough + "/" };
+        console.log(condition);
+        const db = client.db(dbName);
+        searchRestaurant(db, condition, (restaurants) => {
+            console.log(restaurants);
+            if (restaurants.length != 0) {
+                res.writeHead(200, { "Content-Type": "text/html" });
+                res.write('<html><body>')
+                for (i = 0; i < restaurants.length; i++) {
+                    res.write('<a href="/restaurant/_id/' + restaurants[i]._id + '">' + restaurants[i].name + '</a><br/>');
+                }
+                res.end('</body></html>');
+            }
+            else {
+                res.status(200).end('{}');
+            }
+        });
+        client.close();
+    });
+});
+
+router.post('/cuisine', function (req, res, next) {
+    const client = new MongoClient(mongoDBurl);
+    client.connect((err) => {
+        assert.equal(null, err);
+        console.log("Connected successfully to server");
+        let docObj = {}
+        //console.log(req.params.name)
+        let condition = { cuisine: "/" + req.body.cuisine + "/" };
+        console.log(condition);
+        const db = client.db(dbName);
+        searchRestaurant(db, condition, (restaurants) => {
+            console.log(restaurants);
+            if (restaurants.length != 0) {
+                res.writeHead(200, { "Content-Type": "text/html" });
+                res.write('<html><body>')
+                for (i = 0; i < restaurants.length; i++) {
+                    res.write('<a href="/restaurant/_id/' + restaurants[i]._id + '">' + restaurants[i].name + '</a><br/>');
+                }
+                res.end('</body></html>');
+            }
+            else {
+                res.status(200).end('{}');
+            }
+        });
+        client.close();
+    });
+});
+
+const searchRestaurant = (db, criteria, callback) => {
+    cursor = db.collection('restaurants').find(criteria);
+    cursor.toArray((err, docs) => {
+        assert.equal(err, null);
+        //console.log(docs);
+        callback(docs);
+    });
 }
+
 
 
 
