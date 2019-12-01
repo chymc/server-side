@@ -1,46 +1,75 @@
 <html>
-    <head><link rel="stylesheet" href="/css/bootstrap.min.css" />
-    </head>
+
+<head>
+  <link rel="stylesheet" href="/css/bootstrap.min.css" />
+</head>
+
 <body>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
 
   <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="/main">Home <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="#">Search</a>
-                <a class="nav-item nav-link" href="#">My Rentals</a>
-            <a class="nav-item nav-link" href="#">Create</a>
-            <a class="btn btn-danger" role="button" style="color:white;" href="/logout">Logout</a>
-            
-            
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link active" href="/main">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link" href="#">Restaurant</a>
+          <a class="nav-item nav-link" href="#">Search</a>
+          <a class="nav-item nav-link" href="#">Create</a>
+          <a class="btn btn-danger" role="button" style="color:white;" href="/logout">Logout</a>
+
+        </div>
+      </div>
+    </nav>
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">Welcome <%=username %></h1>
+        <h1 class="display-5">Restaurant Collection System</h1>
+        <p class="lead">web-based system for finding restaurant.
+        </p>
+      </div>
+    </div>
+    <div class="row">
+    <% for (r of restaurants) { %>
+      <div id="title" class="card col-12 col-sm-6">
+        <a href="#">
+            <br/>
+            <h6><%=r.name %></h6>
+        </a>
+        <div class="row">
+          <div id="img" class="col-4">
+            <img class="img-fluid " src="data:<%=r.mimetype+';base64,'+r.image%>">
+        </div>
+            <div class="col-8">
+                <div class="card">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><B>owner:</B><%=r.owner %></li>
+                        <li class="list-group-item"><B>borough:</B><%=r.borough %></li>
+                        <li class="list-group-item"><B>cuisine:</B><%=r.cuisine %></li>
+                        
+                    </ul>
+                </div>
             </div>
         </div>
-    </nav>
-    <div
-        class="jumbotron jumbotron-fluid">
-        <div class="container">
-          <h1 class="display-4">Welcome <%=username %></h1>
-          <h1 class="display-5">Restaurant Collection System</h1>
-          <p class="lead">web-based system for finding restaurant. 
-          </p>
+        <div class="col-12"><br>
         </div>
-  </div>
-
     </div>
+      
+      
+      <% } %>
+    </div>
+  </div>
 
 </body>
 

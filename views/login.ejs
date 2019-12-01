@@ -107,6 +107,17 @@
 		$('.js-tilt').tilt({
 			scale: 1.1
 		})
+
+		function showAlert(text){
+
+			alert(text);
+
+		}
+		var re= <%= retype %>;
+		if (re)
+			showAlert('account not exist, please create one');
+
+
 	</script>
 <!--===============================================================================================-->
 	<script src="/javascripts/main.js"></script>

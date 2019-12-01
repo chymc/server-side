@@ -8,7 +8,7 @@ const mongoDBurl = 'mongodb+srv://NIck:Nick24182215@cluster0-9fcrc.azure.mongodb
 const dbName = 'miniproject';
 router.get('/',(req,res,next)=>{
     if (!req.session.name)
-        res.render('login',{title:title});
+        res.render('login',{title:title,retype:false});
     else 
         res.redirect('/main');
 
@@ -35,8 +35,11 @@ router.post('/',(req,res,next)=> {
                     res.redirect('/main');
                 }
             else
+                {
                 console.log('no account');
-            // res.end();
+                res.render('login',{title:title,retype:true});
+            }
+                // res.end();
     
         });
 
