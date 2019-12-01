@@ -22,33 +22,34 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/*',loginRouter);
+app.use('/',loginRouter);
+app.use('/login',loginRouter);
 app.use('/create',createRouter);
 app.get('/hello',function(req,res) {
 
   res.send('This is testing hello world');
 
 });
-app.get('/',function(req,res){
+// app.get('/',function(req,res){
 
-  res.redirect('login');
+//   res.redirect('login');
 
-})
-app.get('/create',function(req,res){
-  res.send('This is create page');
-  console.log('create');
+// })
+// app.get('/create',function(req,res){
+//   res.send('This is create page');
+//   console.log('create');
   
-});
-app.get('/update',function(req,res){
-  res.send('this is update page');
-  console.log('update');
+// });
+// app.get('/update',function(req,res){
+//   res.send('this is update page');
+//   console.log('update');
   
-});
-app.get('/delete',function(req,res){
-  res.send('this is delete page');
-  console.log('delete');
+// });
+// app.get('/delete',function(req,res){
+//   res.send('this is delete page');
+//   console.log('delete');
   
-});
+// });
 
 
 

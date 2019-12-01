@@ -16,7 +16,11 @@ const dbName = 'test';
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    res.status(200).render(path.join(__dirname, '/views/create.ejs'));  
+    res.render('create');
+    // res.status(200).render(path.join(__dirname, '/views/create.ejs'));  
+    console.log('this is create');
+    res.sendStatus(200);
+
 });
 
 router.post('/', function (req, res, next) {
