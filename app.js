@@ -8,6 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var createRouter = require('./routes/create');
+var registerRouter = require('./routes/register');
 var app = express();
 
 // view engine setup
@@ -25,6 +26,7 @@ app.use('/users', usersRouter);
 app.use('/',loginRouter);
 app.use('/login',loginRouter);
 app.use('/create',createRouter);
+app.use('/register',registerRouter);
 app.get('/hello',function(req,res) {
 
   res.send('This is testing hello world');
