@@ -6,7 +6,7 @@ const multer = require('multer');
 const upload = multer({})
 const ObjectID = require('mongodb').ObjectID;
 
-router.set('view engine', 'ejs');
+// router.set('view engine', 'ejs');
 
 // support parsing of application/json type post data
 router.use(bodyParser.json());

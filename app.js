@@ -133,7 +133,7 @@ app.post('/api/restaurant', upload.single('filetoupload'), function (req, res, n
     insertDoc(res, newRest);
 });
 
-const insertDoc = (res, doc) => {
+/*const insertDoc = (res, doc) => {
     if (Object.keys(doc).length > 0) {  // document has at least 1 name/value pair
         const client = new MongoClient(mongoDBurl);
         client.connect((err) => {
@@ -156,8 +156,8 @@ const insertDoc = (res, doc) => {
         res.send({ status: 'failed' });
     }
 };
-
-app.get('/api/restaurant/name/:name', (req, res) => {
+*/
+/*app.get('/api/restaurant/name/:name', (req, res) => {
     const client = new MongoClient(mongoDBurl);
     client.connect((err) => {
         assert.equal(null, err);
@@ -176,8 +176,8 @@ app.get('/api/restaurant/name/:name', (req, res) => {
         client.close();
     });
 });
-
-app.get('/api/restaurant/borough/:borough', function (req, res, next) {
+*/
+/*app.get('/api/restaurant/borough/:borough', function (req, res, next) {
     const client = new MongoClient(mongoDBurl);
     client.connect((err) => {
         assert.equal(null, err);
@@ -197,8 +197,8 @@ app.get('/api/restaurant/borough/:borough', function (req, res, next) {
         client.close();
     });
 });
-
-app.get('/api/restaurant/cuisine/:cuisine', function (req, res, next) {
+*/
+/*app.get('/api/restaurant/cuisine/:cuisine', function (req, res, next) {
     const client = new MongoClient(mongoDBurl);
     client.connect((err) => {
         assert.equal(null, err);
@@ -219,7 +219,7 @@ app.get('/api/restaurant/cuisine/:cuisine', function (req, res, next) {
     });
 
 });
-
+*/
 const searchRestaurant = (db, criteria, callback) => {
     cursor = db.collection('restaurants').find(criteria);
     cursor.toArray((err, docs) => {
