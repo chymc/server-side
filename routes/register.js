@@ -8,11 +8,11 @@ const mongoDBurl = 'mongodb+srv://NIck:Nick24182215@cluster0-9fcrc.azure.mongodb
 const dbName = 'miniproject';
 router.get('/',(req,res,next)=>{
 
-    res.render('login',{title:title});
+    res.render('register',{title:title});
 
 });
 router.post('/',(req,res,next)=> {
-    var q = {'userid':req.body.user, 'password':req.body.pass};
+    var q = {'userid':req.body.userid, 'password':req.body.password};
     console.log("user name"+req.body.user);
     console.log("user password"+req.body.pass);
     res.writeHead(200, { 'Content-Type': 'text/plain' });
@@ -22,18 +22,27 @@ router.post('/',(req,res,next)=> {
         console.log("Connect successfully to server");
         const db = client.db(dbName);
         findUser(db,q,(results)=>{
-            client.close();
+            
             console.log('disconnected');
             console.log(`This is result ${results}`);
             if (results>0)
+            {
+               console.log('account existed');
+                client.close();
+                res.end('account existed');
+            }
+            else
                 {
-                    let username = req.body.user;
-                    req.session.name = username;
-                    res.write(`Welcome ${req.session.name}`);
+                    console.log('no account');
+                    createAccount(q,db,()=>{
+                        client.close();
+                        console.log('account created successfully');
+                        res.end('account created successfully');
+
+                    });
+               
                 }
-                else
-                res.write('no account');
-            res.end('okay');
+
 
         });
 
@@ -52,6 +61,13 @@ const findUser = (db,query,callback) => {
             callback(numDocs);
     })
         .catch(err => console.error("Failed to count documents: ", err))
+
+}
+
+const createAccount = (query,database,callback)=>{
+    database.collection('user').insert(query);
+    callback();
+    
 
 }
 

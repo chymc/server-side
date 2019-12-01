@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const session = require('express-session');
 const multer = require('multer');
 const upload = multer({});
 
@@ -11,12 +12,16 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var createRouter = require('./routes/create');
+var registerRouter = require('./routes/register');
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
+app.use(session({
+  secret: 'DONT TELL ANYONE',
+  cookie: { maxAge: 60 * 1000 }
+}));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -28,6 +33,7 @@ app.use('/users', usersRouter);
 app.use('/',loginRouter);
 app.use('/login',loginRouter);
 app.use('/create',createRouter);
+app.use('/register',registerRouter);
 app.get('/hello',function(req,res) {
 
   res.send('This is testing hello world');
