@@ -24,7 +24,7 @@ router.get('/', function (req, res, next) {
     if (!req.session.name)
         res.redirect('/login');
     else {
-    res.render('create');
+    res.render('create',{username:req.session.name});
     }
 });
 

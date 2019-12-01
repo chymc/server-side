@@ -1,16 +1,93 @@
 <html>
+	<head>
+			<link rel="stylesheet" href="/css/bootstrap.min.css" />
+	</head>
 	<body>
-		<form action="/api/restaurant" method="post" enctype="multipart/form-data">
-			Name: <input type="text" name="name" value="" /><br />
-			Borough: <input type="text" name="borough" value="" /><br />
-			Cuisine: <input type="text" name="cuisine" value="" /><br />
-			Street: <input type="text" name="street" value="" /><br />
-			Building: <input type="text" name="building" value="" /><br />
-			Zipcode: <input type="text" name="zipcode" value="" /><br />
-			GPS Coordinate (lon.): <input type="text" name="coordx" value="" /><br />
-			GPS Coordinate (lat.): <input type="text" name="coordy" value="" /><br />
-			<input type="file" name="filetoupload" /><br />
-			<input type="submit" value="Submit" />
-		</form>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+		</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+			integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+		</script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+		</script>
+		<div class="container">
+				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+						  aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+						  <span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+						  <div class="navbar-nav">
+							<a class="nav-item nav-link" href="/main">Home <span class="sr-only">(current)</span></a>
+							<a class="nav-item nav-link" href="/search">Search</a>
+							<a class="nav-item nav-link active" href="/create">Create</a>
+							<a class="nav-item nav-link" href="/delete">delete</a>
+							<a class="nav-item nav-link" href="/map">Map</a>
+							<a class="btn btn-danger" role="button" style="color:white;" href="/logout">Logout</a>
+				  
+						  </div>
+						</div>
+					  </nav>
+					  <div class="jumbotron jumbotron-fluid">
+						<div class="container">
+						  <h1 class="display-4">Welcome <%=username %></h1>
+						  <h1 class="display-5">Restaurant Collection System</h1>
+						  <p class="lead">web-based system for finding restaurant.
+						  </p>
+						</div>
+					  </div>
+			<H2>Restaurant Create form</H2>
+			<form action="/api/restaurant" method="post" enctype="multipart/form-data">
+				<div class="row">
+					<div class="col-12 col-sm-6">
+							<div class="form-group">
+								<label>Name:</label>
+								<input type="text" name="name" value="" />
+							</div>
+							<div class="form-group">
+									<label>Borough:</label>
+									<input type="text" name="borough" value="" />
+							</div>		
+							<div class="form-group">
+									<label>Cuisine:</label>
+									<input type="text" name="cuisine" value="" />
+							</div>
+								
+							<div class="form-group">
+									<label>Street:</label>
+									<input type="text" name="street" value="" />
+							</div>					
+							<div class="form-group">
+									<label>Building:</label>
+									<input type="text" name="building" value="" />
+							</div>		
+					</div>
+					
+					<div class="col-12 col-sm-6">
+							
+							<div class="form-group">
+									<label>Zipcode:</label>
+									<input type="text" name="zipcode" value="" />
+							</div>		
+							<div class="form-group">
+									<label>GPS Coordinate (lon.): </label>
+									<input type="text" name="coordx" value="" />
+							</div>		
+							<div class="form-group">
+									<label>GPS Coordinate (lat.): </label>
+									<input type="text" name="coordy" value="" />
+							</div>												
+							<div class="form-group">
+									<input type="file" name="filetoupload" />
+							</div>			
+							
+							<input type="submit" value="Submit" class = "btn btn-primary" />
+				
+					</div>
+				</div>
+			</form>
+		</div>
 	</body>
 </html>
