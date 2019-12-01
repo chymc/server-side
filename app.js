@@ -24,6 +24,7 @@ app.use(session({
   secret: 'DONT TELL ANYONE',
   cookie: { maxAge: 60 * 1000 }
 }));
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
