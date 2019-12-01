@@ -15,7 +15,10 @@ const mongoDBurl = 'mongodb+srv://NIck:Nick24182215@cluster0-9fcrc.azure.mongodb
 const dbName = 'miniproject';
 
 router.get('/', function (req, res, next) {
-    res.render('search');
+    if (!req.session.name)
+        res.redirect('/login');
+    else
+        res.render('search');
 });
 
 

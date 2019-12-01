@@ -8,7 +8,7 @@ const mongoDBurl = 'mongodb+srv://NIck:Nick24182215@cluster0-9fcrc.azure.mongodb
 const dbName = 'miniproject';
 router.get('/',(req,res,next)=>{
     const client = new MongoClient(mongoDBurl);
-    if (req.session.name=="")
+    if (!req.session.name)
         res.redirect('/login');
     else 
         {

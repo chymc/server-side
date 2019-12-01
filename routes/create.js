@@ -21,11 +21,11 @@ const mongoDBurl = 'mongodb+srv://NIck:Nick24182215@cluster0-9fcrc.azure.mongodb
 const dbName = 'miniproject';
 
 router.get('/', function (req, res, next) {
+    if (!req.session.name)
+        res.redirect('/login');
+    else {
     res.render('create');
-    // res.status(200).render(path.join(__dirname, '/views/create.ejs'));  
-    console.log('this is create');
-    res.sendStatus(200);
-
+    }
 });
 
 

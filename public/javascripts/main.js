@@ -35,11 +35,11 @@
                 return false;
             }
         }
-        else {
+        /*else {
             if($(input).val().trim() == ''){
                 return false;
             }
-        }
+        }*/
     }
 
     function showValidate(input) {
