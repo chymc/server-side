@@ -82,9 +82,9 @@ const insertDoc = (res, doc) => {
 
                 //after success
                 var newID = result.insertedId;
-                // res.send({ status: 'OK', _id: newID });
-                req.session.isCreate = true;
-                res.redirect('/');
+                res.send({ status: 'OK', _id: newID });
+                //req.session.isCreate = true;
+                //res.redirect('/');
                 client.close();
             });
         });

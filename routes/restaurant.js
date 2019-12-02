@@ -30,8 +30,12 @@ router.get('/_id/:_id', (req, res) => {
         let theCriteria = { _id: ObjectID(req.params._id) };
         searchRestaurant(db, theCriteria, (restaurants) => {
             if (restaurants.length != 0) {
-                res.render('restaurant',{"restaurant":restaurants});
-               /* var aRest = restaurants[0];
+                
+                var aRest = restaurants[0];
+                global.canRate = true;
+                let isOwner = false;
+
+               /* console.log(canRate);
                 res.writeHead(200, { "Content-Type": "text/html" });
                 res.write('<html><body>')
                 res.write('<img src="data:' + aRest.mimetype + ';base64, ' + aRest.image + '" /><br />');
@@ -42,25 +46,38 @@ router.get('/_id/:_id', (req, res) => {
                 res.write('Building: ' + aRest.address.building + '<br />');
                 res.write('Zipcode: ' + aRest.address.zipcode + '<br />');
                 res.write('GPS Coordinate (lon.): ' + aRest.address.coord.x + '<br />');
-                res.write('GPS Coordinate (lat.): ' + aRest.address.coord.y + '<br />');
+                res.write('GPS Coordinate (lat.): ' + aRest.address.coord.y + '<br />'); */
                 for (i = 1; i < aRest.grades.length; i++) {
-                    res.write('<p>');
-                    res.write('Date: ' + aRest.grades[i].date + '<br />');
-                    res.write('Grade: ' + aRest.grades[i].grade + '<br />');
-                    res.write('Score: ' + aRest.grades[i].score + '<br />');
-                    res.write('</p><br />');
+                    console.log('session_name: ' + req.session.name);
+                    console.log('rater: ' + aRest.grades[i].rater);
+                    //console.log(aRest.grades.rater == req.session.name);
+                    //console.log(canRate);
+                    if (aRest.grades[i].rater == req.session.name){
+                        global.canRate = false;
+                        console.log(global.canRate);
+                    }
+                    // res.write('<p>');
+                    // res.write('Date: ' + aRest.grades[i].date + '<br />');
+                    // res.write('Grade: ' + aRest.grades[i].grade + '<br />');
+                    // res.write('Score: ' + aRest.grades[i].score + '<br />');
+                    // res.write('</p><br />');
                 }
                 if (req.session.name == aRest.owner) {
-                    res.write('<a href="/update?_id=' + aRest._id + '">Update Info.</a><br />');
+                    /*res.write('<a href="/update?_id=' + aRest._id + '">Update Info.</a><br />');
                     res.write('<form action="/delete" method="post">');
                     res.write('<input type="hidden" name="_id" value="' + aRest._id + '"/>');
                     res.write('<input type="submit" value="Delete" />');
-                    res.write('</form><br />');
+                    res.write('</form><br />');*/
+                    isOwner = true;
                 }
-                
-                res.write('<a href="/rate?restID=' + aRest._id + '&restName=' + aRest.name + '">Rate this restaurant</a><br />');
+                res.render('restaurant',{"restaurant":restaurants,"canRate":global.canRate,"isOwner":isOwner,"username":req.session.name});
+              
+                console.log('canRate Final: ' + global.canRate);
+                // if (global.canRate == true){
+                //     res.write('<a href="/rate?restID=' + aRest._id + '&restName=' + aRest.name + '">Rate this restaurant</a><br />');
+                // }
 
-                res.write('<form action="/map" method="post">');
+              /*  res.write('<form action="/map" method="post">');
                 res.write('<input type="hidden" name="x" value="' + aRest.address.coord.x + '"/>');
                 res.write('<input type="hidden" name="y" value="' + aRest.address.coord.y + '"/>');
                 res.write('<input type="submit" value="Map" />');

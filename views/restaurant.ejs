@@ -1,16 +1,96 @@
 <html>
+        <head>
+                <link rel="stylesheet" href="/css/bootstrap.min.css" />
+        </head>
+              
     <body>
-            <% for (r of restaurant) { %>
-            <img src="data:<%=r.mimetype+';base64,'+r.image%>" /><br />
-            Name: <%=r.name%><br/>
-            Corough:<%=r.borough %><br/>
-            Cuisine:<%=r.cuisine%><br/>
-            Street:<%=r.address.street%><br/>
-            Building:<%=r.address.building%><br />
-            Zipcode:<%=r.address.zipcode%><br/>
-            GPS Coordinate (lon.):<%=r.address.coord.x%><br/>
-            GPS Coordinate (lat.):<%=r.address.coord.y%><br/>
-            <% } %>
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+          </script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+          </script>
+          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+          </script>
+        <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                          <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                          <div class="navbar-nav">
+                            <a class="nav-item nav-link active" href="/main">Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-item nav-link" href="/search">Search</a>
+                            <a class="nav-item nav-link" href="/create">Create</a>
+                            <!--<a class="nav-item nav-link" href="/delete">delete</a>
+                            <a class="nav-item nav-link" href="/map">Map</a>-->
+                            <a class="btn btn-danger" role="button" style="color:white;" href="/logout">Logout</a>
+                  
+                          </div>
+                        </div>
+                      </nav>
+                      <div class="jumbotron jumbotron-fluid">
+                            <div class="container">
+                              <h1 class="display-4">Welcome <%=username %></h1>
+                              <h1 class="display-5">Restaurant Collection System</h1>
+                              <p class="lead">web-based system for finding restaurant.
+                              </p>
+                            </div>
+                          </div>
+                          <H2>Restaurant Details</H2>
+                          <div class="row">
+                          <% for (r of restaurant) { %>
+                            <div class="col-md-6">
+                            <img src="data:<%=r.mimetype+';base64,'+r.image%>" /><br />
+                            </div>
+                            <div class="col-md-6">
+                            Name: <%=r.name%><br/>
+                            Corough:<%=r.borough %><br/>
+                            Cuisine:<%=r.cuisine%><br/>
+                            Street:<%=r.address.street%><br/>
+                            Building:<%=r.address.building%><br />
+                            Zipcode:<%=r.address.zipcode%><br/>
+                            GPS Coordinate (lon.):<%=r.address.coord.x%><br/>
+                            GPS Coordinate (lat.):<%=r.address.coord.y%><br/>
+                                <% for (i of r.grades) { %>
+                                    <p>
+                                            Date:<%=i.date%><br/>
+                                            Grade:<%=i.grade%><br/>
+                                            Score:<%=i.score%><br/>
+                                    </p>
+                                    <% } %>
+                                <% if (isOwner) {  %>
+                                    <form action="/delete" method="post">
+                                        <input type="hidden" name="_id" value="<%=r._id%>"/>
+                                        <input type="submit" value="Delete" />
+                                    </form><br/>
+                                <% } %>
+                
+                                <% if (canRate) { %> 
+                
+                                    <a href="/rate?restID=<%=r._id%>&restName=<%=r.name%>">Rate this restaurant</a><br />
+                
+                
+                                <% } %>
+                                    <form action="/map" method="post">
+                                        <input type="hidden" name="x" value="<%=r.address.coord.x%>"/>
+                                        <input type="hidden" name="y" value="<%=r.address.coord.y%>"/>
+                                        <input type="submit" value="Map" />
+                                    </form>
+                            </div>
+                            <% } %>
+                        </div>
+                       
+
+                          
+        </div>        
+
+
+
+
+
     </body>
 
 

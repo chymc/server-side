@@ -26,8 +26,8 @@
           <a class="nav-item nav-link active" href="/main">Home <span class="sr-only">(current)</span></a>
           <a class="nav-item nav-link" href="/search">Search</a>
           <a class="nav-item nav-link" href="/create">Create</a>
-          <a class="nav-item nav-link" href="/delete">delete</a>
-          <a class="nav-item nav-link" href="/map">Map</a>
+          <!--<a class="nav-item nav-link" href="/delete">delete</a>
+          <a class="nav-item nav-link" href="/map">Map</a>-->
           <a class="btn btn-danger" role="button" style="color:white;" href="/logout">Logout</a>
 
         </div>
@@ -45,7 +45,7 @@
     <% if ((restaurants!=="") || (restaurants!==null)){ 
       for (r of restaurants) { %>
       <div id="title" class="card col-12 col-sm-6">
-        <a href="restaurant/_id/<%=r._id%>">
+        <a href="/restaurant/_id/<%=r._id%>">
             <br/>
             <h6><%=r.name %></h6>
         </a>

@@ -30,6 +30,7 @@ router.post('/', function (req, res, next) {
     let myquery = { _id: ObjectID(req.body._id) };
     let target = {};
     target.date = new Date(Date.now());
+    target.rater = req.session.name;
     target.grade = req.body.grade;
     target.score = req.body.score;
 
@@ -42,7 +43,7 @@ router.post('/', function (req, res, next) {
         const db = client.db(dbName);
         updateRestaurant(db, myquery, newValues, (editCount) => {
             if (editCount != 0) {
-                res.status(200).end('Rate Success');
+                res.status(200).send('Rate Success! <a href="/main">Back to main page</a>');
             }
             else {
                 res.status(200).end('Failed!');
