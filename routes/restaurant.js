@@ -30,7 +30,8 @@ router.get('/_id/:_id', (req, res) => {
         let theCriteria = { _id: ObjectID(req.params._id) };
         searchRestaurant(db, theCriteria, (restaurants) => {
             if (restaurants.length != 0) {
-                var aRest = restaurants[0];
+                res.render('restaurant',{"restaurant":restaurants});
+               /* var aRest = restaurants[0];
                 res.writeHead(200, { "Content-Type": "text/html" });
                 res.write('<html><body>')
                 res.write('<img src="data:' + aRest.mimetype + ';base64, ' + aRest.image + '" /><br />');
@@ -65,7 +66,7 @@ router.get('/_id/:_id', (req, res) => {
                 res.write('<input type="submit" value="Map" />');
                 res.write('</form><br />');
 
-                res.end('</body></html>');
+                res.end('</body></html>');*/
             }
             else {
                 res.status(200).end('{}');

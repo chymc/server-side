@@ -1,0 +1,17 @@
+<html>
+    <body>
+            <% for (r of restaurant) { %>
+            <img src="data:<%=r.mimetype+';base64,'+r.image%>" /><br />
+            Name: <%=r.name%><br/>
+            Corough:<%=r.borough %><br/>
+            Cuisine:<%=r.cuisine%><br/>
+            Street:<%=r.address.street%><br/>
+            Building:<%=r.address.building%><br />
+            Zipcode:<%=r.address.zipcode%><br/>
+            GPS Coordinate (lon.):<%=r.address.coord.x%><br/>
+            GPS Coordinate (lat.):<%=r.address.coord.y%><br/>
+            <% } %>
+    </body>
+
+
+</html>
